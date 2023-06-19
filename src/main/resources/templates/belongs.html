@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AirLine</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{/main.css}">
+    </head>
+    <body>
+        <header>
+            <a class="logo">Авиакомпании России</a>
+            <nav>
+                <ul class="topmenu">
+                    <li><a th:href="@{/airline}" class="submenu-link">Авиакомпания</a>
+                        <ul class="submenu">
+                            <li><a th:href="@{/employee}">Сотрудники</a></li>
+                            <li><a th:href="@{/payment}">Осуществление оплаты</a></li>
+                            <li><a th:href="@{/belongs}">Принадлежность самолетов</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/travel_agency}" class="submenu-link">Турагенство</a>
+                        <ul class="submenu">
+                            <li><a th:href="@{/pass}">Пассажиры</a></li>
+                            <li><a th:href="@{/reserv}">Осуществление бронирования</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/airplane}" class="submenu-link">Самолеты</a>
+                        <ul class="submenu">
+                            <li><a th:href="@{/class}">Класс</a></li>
+                            <li><a th:href="@{/model}">Модель</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/trip}" class="submenu-link">Перелеты</a>
+                        <ul class="submenu">
+                            <li><a th:href="@{/flight}">Рейс</a></li>
+                            <li><a th:href="@{/airports}">Аэропорты</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <div class="failes_list">
+            <input type="number" name="number_of_plane" placeholder="Количество самолетов" required>
+            <select name="airline" required>
+                <option selected disabled>Выберите компанию</option>
+                <option th:each="airline : ${airline}" th:value="${airline.id_comp}" th:text="${airline.id_comp}"></option>
+            </select>
+            <select name="airplane" required>
+                <option selected disabled>Выберите самолет</option>
+                <option th:each="airplane : ${airplane}" th:value="${airplane.id_plane}" th:text="${airplane.id_plane}"></option>
+            </select>
+            <button class="button-17" role="button">Добавить</button>
+        </div>
+        <table>
+            <tr>
+              <th>ID</th>
+              <th>Количество самолетов</th>
+              <th>Авиакомпании</th>
+              <th>Самолет</th>
+              </tr>
+              <tbody>
+                <tr th:each="belongs : ${belongsIterable}">
+                    <td th:text="${belongs.Id_have}"></td>
+                    <td th:text="${belongs.number_of_plane}"></td>
+                    <td th:text="${belongs.airline}"></td>
+                    <td th:text="${belongs.airplane}"></td>
+                    <td>
+                        <form th:action="@{/belongs/delete/{Id_have} (Id_have=${belongs.Id_have})}" method="post">
+                            <button type ="submit" class="button-17" role="button">Удалить</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{'/belongs/' + ${belongs.Id_have}}">
+                            <button type="submit" class="button-17">Редактировать</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    </body>
+</html>

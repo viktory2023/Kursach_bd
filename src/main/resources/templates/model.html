@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>AirLine</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" th:href="@{/main.css}">
+    </head>
+    <body>
+        <header>
+            <a class="logo">Авиакомпании России</a>
+            <nav>
+                <ul class="topmenu">
+                    <li><a th:href="@{/airline}" class="submenu-link">Авиакомпания</a>
+                        <ul class="submenu">
+                            <li><a th:href="@{/employee}">Сотрудники</a></li>
+                            <li><a th:href="@{/payment}">Осуществление оплаты</a></li>
+                            <li><a th:href="@{/belongs}">Принадлежность самолетов</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/travel_agency}" class="submenu-link">Турагенство</a>
+                        <ul class="submenu">
+                            <li><a th:href="@{/pass}">Пассажиры</a></li>
+                            <li><a th:href="@{/reserv}">Осуществление бронирования</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/airplane}" class="submenu-link">Самолеты</a>
+                        <ul class="submenu">
+                            <li><a th:href="@{/class}">Класс</a></li>
+                            <li><a th:href="@{/model}">Модель</a></li>
+                        </ul>
+                    </li>
+                    <li><a th:href="@{/trip}" class="submenu-link">Перелеты</a>
+                        <ul class="submenu">
+                            <li><a th:href="@{/flight}">Рейс</a></li>
+                            <li><a th:href="@{/airports}">Аэропорты</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <form th:action="@{/model/add}" method="post" class="failes_list">
+            <input type="number" name="numper_of_pass" placeholder="Число пассажиров" required>
+            <input type="number" name="exploitation" placeholder="Стоимость эксплуатации" required>
+            <select name="aircraft_class" required>
+                <option selected disabled>Выберите класс</option>
+                <option th:each="aircraft_class : ${aircraft_class}" th:value="${aircraft_class.number_of_flight}" th:text="${aircraft_class.number_of_flight}"></option>
+            </select>
+            <button class="button-17" role="button">Добавить</button>
+        </form>
+        <table>
+            <tr>
+              <th>ID</th>
+              <th>Пассажиры</th>
+              <th>Эксплуатация</th>
+              <th>Класс</th>
+              </tr>
+              <tbody>
+                <tr th:each="model : ${aircraftModelIterable}">
+                    <td th:text="${model.id_model}"></td>
+                    <td th:text="${model.number_of_pass}"></td>
+                    <td th:text="${model.exploitation}"></td>
+                    <td th:text="${model.aircraft_class}"></td>
+                    <td>
+                        <form th:action="@{/model/delete/{id_model} (id_model=${model.id_model})}" method="post">
+                            <button type ="submit" class="button-17" role="button">Удалить</button>
+                        </form>
+                    </td>
+                    <td>
+                        <form th:action="@{'/model/' + ${model.id_model}}">
+                            <button type="submit" class="button-17">Редактировать</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+    </body>
+</html>

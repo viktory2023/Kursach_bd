@@ -1,0 +1,26 @@
+.failes_list{
+    margin-top: 20px;
+    margin-left: 5%;
+}
+
+input[type=text] {
+       padding:10px;
+       margin:10px 0;
+     }
+
+     input[type=date] {
+         padding:10px;
+         margin:10px 0;
+       }
+       input[type=time] {
+           padding:10px;
+           margin:10px 0;
+         }
+                input[type=number] {
+                    padding:10px;
+                    margin:10px 0;
+                  }
+option {
+padding:10px;
+margin:10px 0;
+}
